@@ -27,16 +27,44 @@ namespace TaskbarGone
         /// </summary>
         IntPtr startButtonHandle;
 
+        /// <summary>
+        /// Sets the window position.
+        /// </summary>
+        /// <returns><c>true</c>, if window position was set, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="hWndInsertAfter">H window insert after.</param>
+        /// <param name="X">X.</param>
+        /// <param name="Y">Y.</param>
+        /// <param name="cx">Cx.</param>
+        /// <param name="cy">Cy.</param>
+        /// <param name="uFlags">U flags.</param>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);
 
+        /// <summary>
+        /// Finds the window.
+        /// </summary>
+        /// <returns>The window.</returns>
+        /// <param name="lpClassName">Lp class name.</param>
+        /// <param name="lpWindowName">Lp window name.</param>
         [DllImport("user32", EntryPoint = "FindWindowA", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        /// <summary>
+        /// Finds the window ex.
+        /// </summary>
+        /// <returns>The window ex.</returns>
+        /// <param name="parentHwnd">Parent hwnd.</param>
+        /// <param name="childAfterHwnd">Child after hwnd.</param>
+        /// <param name="className">Class name.</param>
+        /// <param name="windowText">Window text.</param>
         [DllImport("user32.dll")]
         private static extern IntPtr FindWindowEx(IntPtr parentHwnd, IntPtr childAfterHwnd, IntPtr className, string windowText);
 
+        /// <summary>
+        /// Set window position flags.
+        /// </summary>
         [Flags]
         private enum SetWindowPosFlags : uint
         {
@@ -105,7 +133,8 @@ namespace TaskbarGone
         /// <param name="e">Event arguments.</param>
         private void OnExitToolStripMenuItem1Click(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Close program
+            this.Close();
         }
 
         /// <summary>
