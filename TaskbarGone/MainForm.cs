@@ -8,6 +8,7 @@ namespace TaskbarGone
     // Directives
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Drawing;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
@@ -161,7 +162,8 @@ namespace TaskbarGone
         /// <param name="e">Event arguments.</param>
         private void OnMoreReleasesPublicDomainGiftcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open gift website
+            Process.Start("https://publicdomaingift.com");
         }
 
         /// <summary>
