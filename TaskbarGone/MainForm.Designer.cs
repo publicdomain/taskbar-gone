@@ -59,9 +59,13 @@ namespace TaskbarGone
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.enableDisableButton = new System.Windows.Forms.Button();
             this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideTaskbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.notifyContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -237,7 +241,31 @@ namespace TaskbarGone
             // 
             // mainNotifyIcon
             // 
+            this.mainNotifyIcon.ContextMenuStrip = this.notifyContextMenuStrip;
             this.mainNotifyIcon.Text = "Click to show Random Sounds App";
+            this.mainNotifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnMainNotifyIconMouseClick);
+            // 
+            // notifyContextMenuStrip
+            // 
+            this.notifyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                                    this.showToolStripMenuItem,
+                                    this.hideTaskbarToolStripMenuItem});
+            this.notifyContextMenuStrip.Name = "notifyContextMenuStrip";
+            this.notifyContextMenuStrip.Size = new System.Drawing.Size(149, 48);
+            // 
+            // showToolStripMenuItem
+            // 
+            this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.showToolStripMenuItem.Text = "&Show window";
+            this.showToolStripMenuItem.Click += new System.EventHandler(this.OnShowToolStripMenuItemClick);
+            // 
+            // hideTaskbarToolStripMenuItem
+            // 
+            this.hideTaskbarToolStripMenuItem.Name = "hideTaskbarToolStripMenuItem";
+            this.hideTaskbarToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.hideTaskbarToolStripMenuItem.Text = "&Hide taskbar";
+            this.hideTaskbarToolStripMenuItem.Click += new System.EventHandler(this.OnHideTaskbarToolStripMenuItemClick);
             // 
             // MainForm
             // 
@@ -260,9 +288,13 @@ namespace TaskbarGone
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.notifyContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem hideTaskbarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip notifyContextMenuStrip;
         private System.Windows.Forms.NotifyIcon mainNotifyIcon;
         private System.Windows.Forms.ToolStripMenuItem openInTaskbarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startOnLoginToolStripMenuItem;

@@ -10,6 +10,7 @@ namespace TaskbarGone
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
+    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -27,6 +28,12 @@ namespace TaskbarGone
         /// The start button handle.
         /// </summary>
         IntPtr startButtonHandle;
+
+        /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
 
         /// <summary>
         /// Sets the window position.
@@ -64,6 +71,16 @@ namespace TaskbarGone
         private static extern IntPtr FindWindowEx(IntPtr parentHwnd, IntPtr childAfterHwnd, IntPtr className, string windowText);
 
         /// <summary>
+        /// Gets the window rect.
+        /// </summary>
+        /// <returns><c>true</c>, if window rect was gotten, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="lpRect">Lp rect.</param>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowRect(HandleRef hWnd, out RECT lpRect);
+
+        /// <summary>
         /// Set window position flags.
         /// </summary>
         [Flags]
@@ -87,12 +104,35 @@ namespace TaskbarGone
         }
 
         /// <summary>
+        /// Rect.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:TaskbarGone.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set public domain weekly tool strip menu item image
+            this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+            // Set taskbar icon
+            this.mainNotifyIcon.Icon = this.Icon;
         }
 
         /// <summary>
@@ -195,7 +235,8 @@ namespace TaskbarGone
         /// <param name="e">Event arguments.</param>
         private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Send to system tray
+            this.SendToSystemTray();
         }
 
         /// <summary>
@@ -239,6 +280,41 @@ namespace TaskbarGone
 
             // Hide system tray icon
             this.mainNotifyIcon.Visible = false;
+        }
+
+        /// <summary>
+        /// Handles the main notify icon mouse click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainNotifyIconMouseClick(object sender, MouseEventArgs e)
+        {
+            // Check for left click
+            if (e.Button == MouseButtons.Left)
+            {
+                // Restore window 
+                this.RestoreFromSystemTray();
+            }
+        }
+
+        /// <summary>
+        /// Handles the show tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the hide taskbar tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnHideTaskbarToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }
