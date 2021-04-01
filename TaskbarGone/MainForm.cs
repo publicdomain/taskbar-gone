@@ -187,5 +187,40 @@ namespace TaskbarGone
             // Open GitHub repository
             Process.Start("https://github.com/publicdomain/taskbar-gone");
         }
+
+        /// <summary>
+        /// Handles the minimize tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMinimizeToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the main form form closing event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Sends the program to the system tray.
+        /// </summary>
+        private void SendToSystemTray()
+        {
+            // Hide main form
+            this.Hide();
+
+            // Remove from task bar
+            this.ShowInTaskbar = false;
+
+            // Show notify icon 
+            this.mainNotifyIcon.Visible = true;
+        }
     }
 }
