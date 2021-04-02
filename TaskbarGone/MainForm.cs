@@ -126,6 +126,41 @@ namespace TaskbarGone
         }
 
         /// <summary>
+        /// Registers the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        /// <param name="fsModifiers">Fs modifiers.</param>
+        /// <param name="vk">Vk.</param>
+        [DllImport("User32")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+
+        /// <summary>
+        /// Unregisters the hot key.
+        /// </summary>
+        /// <returns><c>true</c>, if hot key was unregistered, <c>false</c> otherwise.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="id">Identifier.</param>
+        [DllImport("User32")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        /// <summary>
+        /// The mod shift.
+        /// </summary>
+        public const int MOD_SHIFT = 0x4;
+
+        /// <summary>
+        /// The mod control.
+        /// </summary>
+        public const int MOD_CONTROL = 0x2;
+
+        /// <summary>
+        /// The mod alternate.
+        /// </summary>
+        public const int MOD_ALT = 0x1;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:TaskbarGone.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -326,6 +361,15 @@ namespace TaskbarGone
         {
             // Restore window 
             this.RestoreFromSystemTray();
+        }
+
+        /// <summary>
+        /// Registers the hotkeys.
+        /// </summary>
+        private void RegisterHotkeys()
+        {
+            // Register ALT + SHIFT + S
+            RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.S));
         }
     }
 }
