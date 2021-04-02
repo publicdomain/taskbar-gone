@@ -22,12 +22,22 @@ namespace TaskbarGone
         /// <summary>
         /// The taskbar handle.
         /// </summary>
-        IntPtr taskbarHandle;
+        private IntPtr taskbarHandle;
+
+        /// <summary>
+        /// The taskbar handle rect.
+        /// </summary>
+        private RECT taskbarHandleRect;
 
         /// <summary>
         /// The start button handle.
         /// </summary>
-        IntPtr startButtonHandle;
+        private IntPtr startButtonHandle;
+
+        /// <summary>
+        /// The start button handle rect.
+        /// </summary>
+        private RECT startButtonHandleRect;
 
         /// <summary>
         /// Gets or sets the associated icon.
@@ -78,7 +88,7 @@ namespace TaskbarGone
         /// <param name="lpRect">Lp rect.</param>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(HandleRef hWnd, out RECT lpRect);
+        static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
 
         /// <summary>
         /// Set window position flags.
@@ -146,12 +156,22 @@ namespace TaskbarGone
             this.taskbarHandle = FindWindow("Shell_traywnd", string.Empty);
             this.startButtonHandle = FindWindowEx(IntPtr.Zero, IntPtr.Zero, (IntPtr)0xC017, null);
 
+            // TODO Set initial RECTs [Can be improved i.e. on start]
+            if (this.taskbarHandleRect.Equals(default(RECT)))
+            {
+                // Set taskbar rect
+                GetWindowRect(this.taskbarHandle, ref this.taskbarHandleRect);
+
+                // Set start button rect
+                GetWindowRect(this.startButtonHandle, ref this.startButtonHandleRect);
+            }
+
             // Act om button text
             if (this.enableDisableButton.Text.StartsWith("&E", StringComparison.InvariantCulture))
             {
                 // Hide
-                SetWindowPos(this.taskbarHandle, IntPtr.Zero, 0, 0, 0, 0, SetWindowPosFlags.SWP_HIDEWINDOW);
-                SetWindowPos(this.startButtonHandle, IntPtr.Zero, 0, 0, 0, 0, SetWindowPosFlags.SWP_HIDEWINDOW);
+                SetWindowPos(this.taskbarHandle, IntPtr.Zero, 0, this.taskbarHandleRect.Top * 2, 0, 0, SetWindowPosFlags.SWP_HIDEWINDOW);
+                SetWindowPos(this.startButtonHandle, IntPtr.Zero, 0, this.startButtonHandleRect.Top * 2, 0, 0, SetWindowPosFlags.SWP_HIDEWINDOW);
 
                 // Update button text
                 this.enableDisableButton.Text = "&Disable";
@@ -159,8 +179,8 @@ namespace TaskbarGone
             else
             {
                 // Show 
-                SetWindowPos(this.taskbarHandle, IntPtr.Zero, 0, 0, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
-                SetWindowPos(this.startButtonHandle, IntPtr.Zero, 0, 0, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
+                SetWindowPos(this.taskbarHandle, IntPtr.Zero, this.taskbarHandleRect.Left, this.taskbarHandleRect.Top, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
+                SetWindowPos(this.startButtonHandle, IntPtr.Zero, this.startButtonHandleRect.Left, this.startButtonHandleRect.Top, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
 
                 // Update button text
                 this.enableDisableButton.Text = "&Enable";
@@ -304,17 +324,8 @@ namespace TaskbarGone
         /// <param name="e">Event arguments.</param>
         private void OnShowToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
-        }
-
-        /// <summary>
-        /// Handles the hide taskbar tool strip menu item click event.
-        /// </summary>
-        /// <param name="sender">Sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnHideTaskbarToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            // TODO Add code
+            // Restore window 
+            this.RestoreFromSystemTray();
         }
     }
 }
