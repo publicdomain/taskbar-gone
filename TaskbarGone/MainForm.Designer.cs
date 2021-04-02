@@ -46,6 +46,7 @@ namespace TaskbarGone
         	this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.startOnLoginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.openInTaskbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.enableHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.moreReleasesPublicDomainGiftcomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,6 @@ namespace TaskbarGone
         	this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
         	this.notifyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
         	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.enableHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainMenuStrip.SuspendLayout();
         	this.mainStatusStrip.SuspendLayout();
         	this.tableLayoutPanel1.SuspendLayout();
@@ -115,8 +115,6 @@ namespace TaskbarGone
         	// 
         	// alwaysOnTopToolStripMenuItem
         	// 
-        	this.alwaysOnTopToolStripMenuItem.Checked = true;
-        	this.alwaysOnTopToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
         	this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
         	this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
@@ -132,6 +130,12 @@ namespace TaskbarGone
         	this.openInTaskbarToolStripMenuItem.Name = "openInTaskbarToolStripMenuItem";
         	this.openInTaskbarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.openInTaskbarToolStripMenuItem.Text = "&Open in taskbar";
+        	// 
+        	// enableHotkeysToolStripMenuItem
+        	// 
+        	this.enableHotkeysToolStripMenuItem.Name = "enableHotkeysToolStripMenuItem";
+        	this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+        	this.enableHotkeysToolStripMenuItem.Text = "&Enable hotkeys";
         	// 
         	// helpToolStripMenuItem
         	// 
@@ -259,14 +263,6 @@ namespace TaskbarGone
         	this.showToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
         	this.showToolStripMenuItem.Text = "&Show window";
         	this.showToolStripMenuItem.Click += new System.EventHandler(this.OnShowToolStripMenuItemClick);
-        	// 
-        	// enableHotkeysToolStripMenuItem
-        	// 
-        	this.enableHotkeysToolStripMenuItem.Checked = true;
-        	this.enableHotkeysToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-        	this.enableHotkeysToolStripMenuItem.Name = "enableHotkeysToolStripMenuItem";
-        	this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-        	this.enableHotkeysToolStripMenuItem.Text = "&Enable hotkeys";
         	// 
         	// MainForm
         	// 

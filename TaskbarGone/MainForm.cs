@@ -161,6 +161,11 @@ namespace TaskbarGone
         public const int MOD_ALT = 0x1;
 
         /// <summary>
+        /// The wm hotkey.
+        /// </summary>
+        public const int WM_HOTKEY = 0x312;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:TaskbarGone.MainForm"/> class.
         /// </summary>
         public MainForm()
@@ -178,6 +183,29 @@ namespace TaskbarGone
 
             // Set taskbar icon
             this.mainNotifyIcon.Icon = this.Icon;
+        }
+
+        /// <summary>
+        /// Window procedure.
+        /// </summary>
+        /// <param name="m">M.</param>
+        protected override void WndProc(ref Message m)
+        {
+            try
+            {
+                // Check for hotkey message and there are hotkeys registered
+                if (m.Msg == WM_HOTKEY && this.enableHotkeysToolStripMenuItem.Checked)
+                {
+                    // Toggle enabled/disabled state via hotkey
+                    this.enableDisableButton.PerformClick();
+                }
+            }
+            catch
+            {
+                // TODO Advise user
+            }
+
+            base.WndProc(ref m);
         }
 
         /// <summary>
