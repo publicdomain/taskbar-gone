@@ -371,5 +371,14 @@ namespace TaskbarGone
             // Register ALT + SHIFT + S
             RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.S));
         }
+
+        /// <summary>
+        /// Unregisters the hotkeys.
+        /// </summary>
+        private void UnregisterHotkeys()
+        {
+            // Unregister ALT + SHIFT + S
+            UnregisterHotKey(this.Handle, 0);
+        }
     }
 }
