@@ -20,6 +20,12 @@ namespace TaskbarGone
     public partial class MainForm : Form
     {
         /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
         /// The taskbar handle.
         /// </summary>
         private IntPtr taskbarHandle;
@@ -40,10 +46,21 @@ namespace TaskbarGone
         private RECT startButtonHandleRect;
 
         /// <summary>
-        /// Gets or sets the associated icon.
+        /// The wm hotkey.
         /// </summary>
-        /// <value>The associated icon.</value>
-        private Icon associatedIcon = null;
+        private const int WM_HOTKEY = 0x312;
+
+        /// <summary>
+        /// Rect.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
 
         /// <summary>
         /// Sets the window position.
@@ -114,18 +131,6 @@ namespace TaskbarGone
         }
 
         /// <summary>
-        /// Rect.
-        /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
-        }
-
-        /// <summary>
         /// Registers the hot key.
         /// </summary>
         /// <returns><c>true</c>, if hot key was registered, <c>false</c> otherwise.</returns>
@@ -161,17 +166,15 @@ namespace TaskbarGone
         public const int MOD_ALT = 0x1;
 
         /// <summary>
-        /// The wm hotkey.
-        /// </summary>
-        public const int WM_HOTKEY = 0x312;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="T:TaskbarGone.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            // Set hotkey native form
+            //this.hotkeyNativeForm = new HotkeyNativeForm(this);
 
             /* Set icons */
 
@@ -194,7 +197,7 @@ namespace TaskbarGone
             try
             {
                 // Check for hotkey message and there are hotkeys registered
-                if (m.Msg == WM_HOTKEY && this.enableHotkeysToolStripMenuItem.Checked)
+                if (m.Msg == WM_HOTKEY)
                 {
                     // Toggle enabled/disabled state via hotkey
                     this.enableDisableButton.PerformClick();
@@ -213,7 +216,7 @@ namespace TaskbarGone
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnEnableDisableButtonClick(object sender, EventArgs e)
+        public void OnEnableDisableButtonClick(object sender, EventArgs e)
         {
             // TODO Set handles [Set in another function]
             this.taskbarHandle = FindWindow("Shell_traywnd", string.Empty);
@@ -276,6 +279,22 @@ namespace TaskbarGone
 
             // Set topmost
             this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
+
+            // Check if must perform any hotkey action
+            if (toolStripMenuItem.Name == this.enableHotkeysToolStripMenuItem.Name)
+            {
+                // Act on checked
+                if (this.enableHotkeysToolStripMenuItem.Checked)
+                {
+                    // Register
+                    this.RegisterHotkeys();
+                }
+                else
+                {
+                    // Unregister
+                    this.UnregisterHotkeys();
+                }
+            }
         }
 
         /// <summary>
@@ -338,10 +357,13 @@ namespace TaskbarGone
         private void SendToSystemTray()
         {
             // Hide main form
-            this.Hide();
+            // this.Hide();
 
             // Remove from task bar
-            this.ShowInTaskbar = false;
+            //this.ShowInTaskbar = false;
+
+            // Minimize
+            this.WindowState = FormWindowState.Minimized;
 
             // Show notify icon 
             this.mainNotifyIcon.Visible = true;
@@ -353,13 +375,13 @@ namespace TaskbarGone
         private void RestoreFromSystemTray()
         {
             // Make form visible again
-            this.Show();
+            //this.Show();
 
             // Return window back to normal
             this.WindowState = FormWindowState.Normal;
 
             // Restore in task bar
-            this.ShowInTaskbar = true;
+            //this.ShowInTaskbar = true;
 
             // Hide system tray icon
             this.mainNotifyIcon.Visible = false;
@@ -392,9 +414,20 @@ namespace TaskbarGone
         }
 
         /// <summary>
+        /// Hndles the hide tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnHideToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // Click enable/disable button
+            this.enableDisableButton.PerformClick();
+        }
+
+        /// <summary>
         /// Registers the hotkeys.
         /// </summary>
-        private void RegisterHotkeys()
+        public void RegisterHotkeys()
         {
             // Register ALT + SHIFT + S
             RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.S));
@@ -403,7 +436,7 @@ namespace TaskbarGone
         /// <summary>
         /// Unregisters the hotkeys.
         /// </summary>
-        private void UnregisterHotkeys()
+        public void UnregisterHotkeys()
         {
             // Unregister ALT + SHIFT + S
             UnregisterHotKey(this.Handle, 0);
