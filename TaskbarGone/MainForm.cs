@@ -10,9 +10,12 @@ namespace TaskbarGone
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing;
+    using System.IO;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
+    using System.Xml.Serialization;
+    using PublicDomain;
 
     /// <summary>
     /// Description of MainForm.
@@ -440,6 +443,34 @@ namespace TaskbarGone
         {
             // Unregister ALT + SHIFT + S
             UnregisterHotKey(this.Handle, 0);
+        }
+
+        /// <summary>
+        /// Loads the settings file.
+        /// </summary>
+        /// <returns>The settings file.</returns>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        private SettingsData LoadSettingsFile(string settingsFilePath)
+        {
+            // Use file stream
+            using (FileStream fileStream = File.OpenRead(settingsFilePath))
+            {
+                // Set xml serialzer
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                // Return populated settings data
+                return xmlSerializer.Deserialize(fileStream) as SettingsData;
+            }
+        }
+
+        /// <summary>
+        /// Handles the about tool strip menu item click event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnAboutToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
         }
     }
 }
