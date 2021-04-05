@@ -194,7 +194,7 @@ namespace TaskbarGone
                 if (!File.Exists(this.settingsDataPath))
                 {
                     // Create new settings file
-                    this.SaveSettingsFile(this.settingsDataPath, settingsData);
+                    this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
                 }
 
                 // Load settings from disk
@@ -390,7 +390,14 @@ namespace TaskbarGone
         {
             /* Save settings */
 
+            // Set options
+            this.settingsData.AlwaysOnTop = this.alwaysOnTopToolStripMenuItem.Checked;
+            this.settingsData.StartOnLogin = this.startOnLoginToolStripMenuItem.Checked;
+            this.settingsData.StartMinimized = this.startMinimizedToolStripMenuItem.Checked;
+            this.settingsData.EnableHotkeys = this.enableHotkeysToolStripMenuItem.Checked;
 
+            // Save to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
 
         /// <summary>
@@ -506,8 +513,8 @@ namespace TaskbarGone
         /// Saves the settings file.
         /// </summary>
         /// <param name="settingsFilePath">Settings file path.</param>
-        /// <param name="settingsData">Settings data.</param>
-        private void SaveSettingsFile(string settingsFilePath, SettingsData settingsData)
+        /// <param name="settingsDataParam">Settings data parameter.</param>
+        private void SaveSettingsFile(string settingsFilePath, SettingsData settingsDataParam)
         {
             try
             {
@@ -518,7 +525,7 @@ namespace TaskbarGone
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
 
                     // Serialize settings data
-                    xmlSerializer.Serialize(streamWriter, settingsData);
+                    xmlSerializer.Serialize(streamWriter, settingsDataParam);
                 }
             }
             catch (Exception exception)
