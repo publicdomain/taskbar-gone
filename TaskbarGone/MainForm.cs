@@ -169,26 +169,63 @@ namespace TaskbarGone
         public const int MOD_ALT = 0x1;
 
         /// <summary>
+        /// The settings data.
+        /// </summary>
+        private SettingsData settingsData = new SettingsData();
+
+        /// <summary>
+        /// The settings data path.
+        /// </summary>
+        private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:TaskbarGone.MainForm"/> class.
         /// </summary>
         public MainForm()
         {
-            // The InitializeComponent() call is required for Windows Forms designer support.
-            this.InitializeComponent();
+            try
+            {
+                // The InitializeComponent() call is required for Windows Forms designer support.
+                this.InitializeComponent();
 
-            // Set hotkey native form
-            //this.hotkeyNativeForm = new HotkeyNativeForm(this);
+                /* Set settings */
 
-            /* Set icons */
+                // Check for settings file
+                if (!File.Exists(this.settingsDataPath))
+                {
+                    // Create new settings file
+                    this.SaveSettingsFile(this.settingsDataPath, settingsData);
+                }
 
-            // Set associated icon from exe file
-            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+                // Load settings from disk
+                this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
 
-            // Set public domain weekly tool strip menu item image
-            this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+                // Set GUI
+                this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.AlwaysOnTop;
+                this.startOnLoginToolStripMenuItem.Checked = this.settingsData.StartOnLogin;
+                this.startMinimizedToolStripMenuItem.Checked = this.settingsData.StartMinimized;
+                this.enableHotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
 
-            // Set taskbar icon
-            this.mainNotifyIcon.Icon = this.Icon;
+                // Set hotkey native form
+                //this.hotkeyNativeForm = new HotkeyNativeForm(this);
+
+                /* Set icons */
+
+                // Set associated icon from exe file
+                this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+                // Set public domain weekly tool strip menu item image
+                this.moreReleasesPublicDomainGiftcomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+                // Set taskbar icon
+                this.mainNotifyIcon.Icon = this.Icon;
+            }
+            catch (Exception ex)
+            {
+                // Advise user
+                MessageBox.Show($"Error when initializing the program.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{ex.Message}", "Initialization error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         /// <summary>
@@ -351,7 +388,9 @@ namespace TaskbarGone
         /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            // TODO Add code
+            /* Save settings */
+
+
         }
 
         /// <summary>
