@@ -15,13 +15,13 @@ Notes:
 
 v0.1.0:
 - Hides taskbar and start button.
-- ALT+SHIFT+S toggle hide/show.
+- **ALT+SHIFT+S** toggle hide/show.
 - Always on top.
 - Start on login.
 - Start minimized to tray.
 - Saves settings data on close.
 
-ay #96, Week #14 @ April 06, 2021
+Day #96, Week #14 @ April 06, 2021
 
 ==========
 
