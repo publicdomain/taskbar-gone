@@ -15,6 +15,7 @@ namespace TaskbarGone
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Xml.Serialization;
+    using Microsoft.Win32;
     using PublicDomain;
 
     /// <summary>
@@ -154,6 +155,22 @@ namespace TaskbarGone
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         /// <summary>
+        /// Sends the message.
+        /// </summary>
+        /// <returns>The message.</returns>
+        /// <param name="hWnd">H window.</param>
+        /// <param name="msg">Message.</param>
+        /// <param name="wParam">W parameter.</param>
+        /// <param name="lParam">L parameter.</param>
+        [DllImport("User32.dll")]
+        public static extern Int64 SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        /// <summary>
+        /// The wm paint.
+        /// </summary>
+        private const int WM_PAINT = 0x000F;
+
+        /// <summary>
         /// The mod shift.
         /// </summary>
         public const int MOD_SHIFT = 0x4;
@@ -190,6 +207,9 @@ namespace TaskbarGone
 
                 /* Set settings */
 
+                // Set current directory
+                Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+
                 // Check for settings file
                 if (!File.Exists(this.settingsDataPath))
                 {
@@ -205,6 +225,9 @@ namespace TaskbarGone
                 this.startOnLoginToolStripMenuItem.Checked = this.settingsData.StartOnLogin;
                 this.startMinimizedToolStripMenuItem.Checked = this.settingsData.StartMinimized;
                 this.enableHotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
+
+                // Set topmost
+                this.TopMost = this.settingsData.AlwaysOnTop;
 
                 // Set hotkey native form
                 //this.hotkeyNativeForm = new HotkeyNativeForm(this);
@@ -225,7 +248,6 @@ namespace TaskbarGone
                 // Advise user
                 MessageBox.Show($"Error when initializing the program.{Environment.NewLine}{Environment.NewLine}Message:{Environment.NewLine}{ex.Message}", "Initialization error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         /// <summary>
@@ -287,6 +309,7 @@ namespace TaskbarGone
                 // Show 
                 SetWindowPos(this.taskbarHandle, IntPtr.Zero, this.taskbarHandleRect.Left, this.taskbarHandleRect.Top, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
                 SetWindowPos(this.startButtonHandle, IntPtr.Zero, this.startButtonHandleRect.Left, this.startButtonHandleRect.Top, 0, 0, SetWindowPosFlags.SWP_SHOWWINDOW);
+                SendMessage(this.startButtonHandle, WM_PAINT, IntPtr.Zero, IntPtr.Zero);
 
                 // Update button text
                 this.enableDisableButton.Text = "&Enable";
@@ -333,6 +356,41 @@ namespace TaskbarGone
                 {
                     // Unregister
                     this.UnregisterHotkeys();
+                }
+            }
+            // Start on login
+            else if (toolStripMenuItem.Name == this.startOnLoginToolStripMenuItem.Name)
+            {
+                // Set settings data
+                this.settingsData.StartOnLogin = this.enableHotkeysToolStripMenuItem.Checked;
+
+                // Process startup registry action
+                this.ProcessRunAtStartupRegistry();
+            }
+        }
+
+        /// <summary>
+        /// Processes the run at startup registry action.
+        /// </summary>
+        private void ProcessRunAtStartupRegistry()
+        {
+            // Open registry key
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
+            {
+                // Check for run at startup in settings data
+                if (this.settingsData.StartOnLogin)
+                {
+                    // Add app value
+                    registryKey.SetValue(Application.ProductName, $"\"{Application.ExecutablePath}\"");
+                }
+                else
+                {
+                    // Check for app value
+                    if (registryKey.GetValue(Application.ProductName) != null)
+                    {
+                        // Erase app value
+                        registryKey.DeleteValue(Application.ProductName, false);
+                    }
                 }
             }
         }
@@ -582,6 +640,28 @@ namespace TaskbarGone
 
             // Show about form
             aboutForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Handles the main form load event.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnMainFormLoad(object sender, EventArgs e)
+        {
+            // Enable hotkeys
+            if (this.settingsData.EnableHotkeys)
+            {
+                // Register hotkeys
+                this.RegisterHotkeys();
+            }
+
+            // Start minimized
+            if (this.settingsData.StartMinimized)
+            {
+                // Minimize to tray
+                this.SendToSystemTray();
+            }
         }
     }
 }

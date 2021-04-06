@@ -118,25 +118,25 @@ namespace TaskbarGone
             // alwaysOnTopToolStripMenuItem
             // 
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
             // 
             // startOnLoginToolStripMenuItem
             // 
             this.startOnLoginToolStripMenuItem.Name = "startOnLoginToolStripMenuItem";
-            this.startOnLoginToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.startOnLoginToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.startOnLoginToolStripMenuItem.Text = "&Start on login";
             // 
             // startMinimizedToolStripMenuItem
             // 
             this.startMinimizedToolStripMenuItem.Name = "startMinimizedToolStripMenuItem";
-            this.startMinimizedToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.startMinimizedToolStripMenuItem.Text = "&Start minimized";
+            this.startMinimizedToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.startMinimizedToolStripMenuItem.Text = "&Start minimized to tray";
             // 
             // enableHotkeysToolStripMenuItem
             // 
             this.enableHotkeysToolStripMenuItem.Name = "enableHotkeysToolStripMenuItem";
-            this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.enableHotkeysToolStripMenuItem.Text = "&Enable hotkeys";
             // 
             // helpToolStripMenuItem
@@ -296,8 +296,8 @@ namespace TaskbarGone
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Taskbar Gone";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnMainFormFormClosing);
+            this.Load += new System.EventHandler(this.OnMainFormLoad);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.mainStatusStrip.ResumeLayout(false);
