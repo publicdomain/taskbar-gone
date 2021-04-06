@@ -209,14 +209,14 @@ namespace TaskbarGone
             // 
             this.mainToolStripStatusLabel.Name = "mainToolStripStatusLabel";
             this.mainToolStripStatusLabel.Size = new System.Drawing.Size(74, 17);
-            this.mainToolStripStatusLabel.Text = "Initialization:";
+            this.mainToolStripStatusLabel.Text = "Hotkeys:";
             // 
             // countToolStripStatusLabel
             // 
             this.countToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countToolStripStatusLabel.Name = "countToolStripStatusLabel";
             this.countToolStripStatusLabel.Size = new System.Drawing.Size(47, 17);
-            this.countToolStripStatusLabel.Text = "Manual";
+            this.countToolStripStatusLabel.Text = "ALT + SHIFT + S";
             // 
             // tableLayoutPanel1
             // 

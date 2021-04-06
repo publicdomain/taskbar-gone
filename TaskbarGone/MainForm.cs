@@ -630,12 +630,15 @@ namespace TaskbarGone
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #95, Week #14 @ April 05, 2021",
+                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #96, Week #14 @ April 06, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
                 // Set about form icon
-                Icon = this.associatedIcon
+                Icon = this.associatedIcon,
+
+                // Set always on top
+                TopMost = this.TopMost
             };
 
             // Show about form
