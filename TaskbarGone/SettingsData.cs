@@ -42,6 +42,12 @@ namespace PublicDomain
         public bool StartMinimized { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> hide in tray.
+        /// </summary>
+        /// <value><c>true</c> if hide in tray; otherwise, <c>false</c>.</value>
+        public bool HideInTray { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Urlister.UrlisterSettings"/> enable hotkeys.
         /// </summary>
         /// <value><c>true</c> if enable hotkeys; otherwise, <c>false</c>.</value>

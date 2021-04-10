@@ -224,6 +224,7 @@ namespace TaskbarGone
                 this.alwaysOnTopToolStripMenuItem.Checked = this.settingsData.AlwaysOnTop;
                 this.startOnLoginToolStripMenuItem.Checked = this.settingsData.StartOnLogin;
                 this.startMinimizedToolStripMenuItem.Checked = this.settingsData.StartMinimized;
+                this.hideInTrayToolStripMenuItem.Checked = this.settingsData.HideInTray;
                 this.enableHotkeysToolStripMenuItem.Checked = this.settingsData.EnableHotkeys;
 
                 // Set topmost
@@ -452,6 +453,7 @@ namespace TaskbarGone
             this.settingsData.AlwaysOnTop = this.alwaysOnTopToolStripMenuItem.Checked;
             this.settingsData.StartOnLogin = this.startOnLoginToolStripMenuItem.Checked;
             this.settingsData.StartMinimized = this.startMinimizedToolStripMenuItem.Checked;
+            this.settingsData.HideInTray = this.hideInTrayToolStripMenuItem.Checked;
             this.settingsData.EnableHotkeys = this.enableHotkeysToolStripMenuItem.Checked;
 
             // Save to disk
@@ -545,7 +547,7 @@ namespace TaskbarGone
         /// </summary>
         public void UnregisterHotkeys()
         {
-            // Unregister ALT + SHIFT + S
+            // Unregister CTRL + SHIFT + 9
             UnregisterHotKey(this.Handle, 0);
         }
 

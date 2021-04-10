@@ -64,6 +64,7 @@ namespace TaskbarGone
         	this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.hideInTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainMenuStrip.SuspendLayout();
         	this.mainStatusStrip.SuspendLayout();
         	this.tableLayoutPanel1.SuspendLayout();
@@ -109,6 +110,7 @@ namespace TaskbarGone
         	        	        	this.alwaysOnTopToolStripMenuItem,
         	        	        	this.startOnLoginToolStripMenuItem,
         	        	        	this.startMinimizedToolStripMenuItem,
+        	        	        	this.hideInTrayToolStripMenuItem,
         	        	        	this.enableHotkeysToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
         	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -118,25 +120,25 @@ namespace TaskbarGone
         	// alwaysOnTopToolStripMenuItem
         	// 
         	this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-        	this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
         	// 
         	// startOnLoginToolStripMenuItem
         	// 
         	this.startOnLoginToolStripMenuItem.Name = "startOnLoginToolStripMenuItem";
-        	this.startOnLoginToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.startOnLoginToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.startOnLoginToolStripMenuItem.Text = "&Start on login";
         	// 
         	// startMinimizedToolStripMenuItem
         	// 
         	this.startMinimizedToolStripMenuItem.Name = "startMinimizedToolStripMenuItem";
-        	this.startMinimizedToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-        	this.startMinimizedToolStripMenuItem.Text = "&Start minimized to tray";
+        	this.startMinimizedToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+        	this.startMinimizedToolStripMenuItem.Text = "Start &minimized";
         	// 
         	// enableHotkeysToolStripMenuItem
         	// 
         	this.enableHotkeysToolStripMenuItem.Name = "enableHotkeysToolStripMenuItem";
-        	this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+        	this.enableHotkeysToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
         	this.enableHotkeysToolStripMenuItem.Text = "&Enable hotkeys";
         	// 
         	// helpToolStripMenuItem
@@ -283,6 +285,12 @@ namespace TaskbarGone
         	this.exitToolStripMenuItem.Text = "&Exit";
         	this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitToolStripMenuItem1Click);
         	// 
+        	// hideInTrayToolStripMenuItem
+        	// 
+        	this.hideInTrayToolStripMenuItem.Name = "hideInTrayToolStripMenuItem";
+        	this.hideInTrayToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+        	this.hideInTrayToolStripMenuItem.Text = "&Hide in tray";
+        	// 
         	// MainForm
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -307,6 +315,7 @@ namespace TaskbarGone
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem hideInTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startMinimizedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
