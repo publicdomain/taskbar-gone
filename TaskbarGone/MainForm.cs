@@ -536,8 +536,8 @@ namespace TaskbarGone
         /// </summary>
         public void RegisterHotkeys()
         {
-            // Register ALT + SHIFT + S
-            RegisterHotKey(this.Handle, 0, MOD_ALT + MOD_SHIFT, Convert.ToInt16(Keys.S));
+            // Register CTRL + SHIFT + 9
+            RegisterHotKey(this.Handle, 0, MOD_CONTROL + MOD_SHIFT, Convert.ToInt16(Keys.D9));
         }
 
         /// <summary>

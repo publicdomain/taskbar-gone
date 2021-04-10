@@ -215,8 +215,8 @@ namespace TaskbarGone
         	// 
         	this.countToolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.countToolStripStatusLabel.Name = "countToolStripStatusLabel";
-        	this.countToolStripStatusLabel.Size = new System.Drawing.Size(96, 17);
-        	this.countToolStripStatusLabel.Text = "ALT + SHIFT + S";
+        	this.countToolStripStatusLabel.Size = new System.Drawing.Size(103, 17);
+        	this.countToolStripStatusLabel.Text = "CTRL + SHIFT + 9";
         	// 
         	// tableLayoutPanel1
         	// 
