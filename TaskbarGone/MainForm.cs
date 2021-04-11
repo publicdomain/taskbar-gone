@@ -636,7 +636,7 @@ namespace TaskbarGone
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #96, Week #14 @ April 06, 2021",
+                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #101, Week #14 @ April 11, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
