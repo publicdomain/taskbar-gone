@@ -465,11 +465,15 @@ namespace TaskbarGone
         /// </summary>
         private void SendToSystemTray()
         {
-            // Hide main form
-            // this.Hide();
+            // Check for hide in tray
+            if (this.hideInTrayToolStripMenuItem.Checked)
+            {
+                // Hide main form
+                this.Hide();
 
-            // Remove from task bar
-            //this.ShowInTaskbar = false;
+                // Remove from task bar
+                this.ShowInTaskbar = false;
+            }
 
             // Minimize
             this.WindowState = FormWindowState.Minimized;
@@ -484,13 +488,13 @@ namespace TaskbarGone
         private void RestoreFromSystemTray()
         {
             // Make form visible again
-            //this.Show();
+            this.Show();
+
+            // Restore in task bar
+            this.ShowInTaskbar = true;
 
             // Return window back to normal
             this.WindowState = FormWindowState.Normal;
-
-            // Restore in task bar
-            //this.ShowInTaskbar = true;
 
             // Hide system tray icon
             this.mainNotifyIcon.Visible = false;
