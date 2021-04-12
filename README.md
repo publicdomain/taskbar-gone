@@ -15,7 +15,7 @@ Notes:
 
 v0.2.0:
 - Hide in taskbar option (Windows disables hotkeys on hide).
-- Enable/disable hotkey changed to **CTRL+SHIFT+9**.
+- Enable/disable hotkeys changed to **CTRL+SHIFT+9**.
 
 Day #102, Week #15 @ April 12, 2021
 
