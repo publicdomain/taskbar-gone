@@ -13,6 +13,12 @@ Targets Microsoft .NET framework v4.5 (Native to Windows 8+)
 
 Notes:
 
+v0.2.0:
+- Hide in taskbar option (Windows disables hotkeys on hide).
+- Enable/disable hotkey changed to **CTRL+SHIFT+9**.
+
+Day #102, Week #15 @ April 12, 2021
+
 v0.1.0:
 - Hides taskbar and start button.
 - **ALT+SHIFT+S** toggle hide/show.
@@ -28,9 +34,11 @@ Day #96, Week #14 @ April 06, 2021
 ## Release sponsors:
 
 * Jesse Reichler (A.K.A. Mouser from DonationCoder.com)
-* Tim Parsons
+* Will *you* be the next supporter? :)
 
-Support us from **$1**! Visit: [www.patreon.com/publicdomain](https://www.patreon.com/publicdomain)
+You may support this project by expressing your excitement in the form of a Donation via Paypal @ [www.paypal.me/victorvls](https://www.paypal.me/victorvls) or by becoming a Patron @ [www.patreon.com/publicdomain](https://www.patreon.com/publicdomain).
+
+Thanks & keep on rocking!
 
 ==========
 
