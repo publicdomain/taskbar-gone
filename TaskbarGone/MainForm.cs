@@ -626,6 +626,9 @@ namespace TaskbarGone
                 $"Letter D by ArtsyBee - Pixabay License{Environment.NewLine}" +
                 $"https://pixabay.com/illustrations/d-glamour-gold-lights-2790573/{Environment.NewLine}{Environment.NewLine}";
 
+            // Prepend sponsors
+            licenseText = $"RELEASE SPONSORS:{Environment.NewLine}{Environment.NewLine}* Jesse Reichler{Environment.NewLine}{Environment.NewLine}=========={Environment.NewLine}{Environment.NewLine}" + licenseText;
+
             // Set title
             string programTitle = typeof(MainForm).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyTitleAttribute>().Title;
 
@@ -636,7 +639,7 @@ namespace TaskbarGone
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #101, Week #14 @ April 11, 2021",
+                $"Made for: SyRaza{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #102, Week #15 @ April 12, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
